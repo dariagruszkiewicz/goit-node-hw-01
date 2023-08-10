@@ -1,10 +1,10 @@
 const fs = require("fs");
 const path = require("path");
+const { v1: uuidv1 } = require("uuid");
 
 const contactsPath = path.join(__dirname, "/db/contacts.json");
 console.log(contactsPath);
 
-// TODO: udokumentuj każdą funkcję
 function listContacts() {
 	fs.readFile(contactsPath, (err, data) => {
 		if (err) {
@@ -45,10 +45,26 @@ function removeContact(contactId) {
 }
 
 function addContact(name, email, phone) {
-	// fs.appendFile(contactsPath, (err, data) => {
-	// 	if (err) { console.log(err) } else {
-	// 		const parsedData = JSON.parse(data);
-	// 	}
-	// })
-	// ...twój kod
+	fs.readFile(contactsPath, (err, data) => {
+		if (err) {
+			console.log(err);
+		} else {
+			const parsedData = JSON.parse(data);
+			const newContact = {
+				id: uuidv1(),
+				name,
+				email,
+				phone,
+			};
+			parsedData.push(newContact);
+			console.log(parsedData);
+		}
+	});
 }
+
+module.exports = {
+	listContacts,
+	getContactById,
+	removeContact,
+	addContact,
+};
