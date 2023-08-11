@@ -57,7 +57,7 @@ function addContact(name, email, phone) {
 				phone,
 			};
 			parsedData.push(newContact);
-			console.log(parsedData);
+			console.table(parsedData);
 		}
 	});
 }
